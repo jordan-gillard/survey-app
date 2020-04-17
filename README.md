@@ -27,7 +27,7 @@ the `create_app` function. This might sound a little weird, but Flask has it's o
 special way of handling these factories. In order to run the server, make sure you're
 in the root directory (`survey_app/`) and type the following in your terminal:
 ```bash
-FLASK_APP=src/python/server flask run
+flask run
 ```
 
 ### Database
@@ -47,5 +47,7 @@ database. Your URL should look something like this:
 ```
 sql_dialect_and_driver://username:password@localhost:5432/database_name
 ```
+This project uses python-dotenv. So add your database URL to the `/.env` file and it will be found
+automatically when Flask runs.
 By default, this project uses `PostgreSQL` and the `psycopg2` database connector. You can find more 
 information about SQLAlchemy's database URL [here.](https://docs.sqlalchemy.org/en/13/core/engines.html)
