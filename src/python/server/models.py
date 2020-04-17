@@ -7,22 +7,24 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from src.python.server import db
 
 
-class Questions(db.Model):
+class Question(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer, primary_key=True)
-    hospital_id = db.Column(db.Integer, ForeignKey('Hospitals.id'), nullable=False)
-    doctor_id = db.Column(db.Integer, ForeignKey('Doctors.id'), nullable=False)
+    hospital_id = db.Column(db.Integer, ForeignKey('hospitals.id'), nullable=False)
+    doctor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
     question_text = db.Column(db.Text, nullable=False)
     active = db.Column(db.Boolean, default=True, nullable=False)
     free_text = db.Column(db.Boolean, default=False, nullable=False)
     multiple_choice = db.Column(db.Boolean, default=True, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
 
+    options = relationship("Option")
+
 
 users_hospital_relationship = db.Table('users_hospitals',
-                                         db.Column('user_id', db.Integer, ForeignKey('Users.id')),
-                                         db.Column('hospital_id', db.Integer, ForeignKey('Hospitals.id'))
-                                         )
+                                       db.Column('user_id', db.Integer, ForeignKey('users.id')),
+                                       db.Column('hospital_id', db.Integer, ForeignKey('hospitals.id'))
+                                       )
 
 
 class Hospital(db.Model):
@@ -52,3 +54,20 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class Option(db.Model):
+    __tablename__ = 'options'
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer, ForeignKey('questions.id'), nullable=False)
+    text = db.Column(db.String(60))
+
+
+class Response(db.Model):
+    __tablename__ = 'responses'
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer, ForeignKey('questions.id'), nullable=False)
+    hospital_id = db.Column(db.Integer, ForeignKey('hospitals.id'), nullable=False)
+    choosen_option = db.Column(db.Integer, ForeignKey('options.id'), nullable=True)
+    response_text = db.Column(db.Text, nullable=True)
+    created = db.Column(db.DateTime)
