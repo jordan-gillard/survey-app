@@ -42,6 +42,7 @@ with app.app_context():
     user2.set_password(password='tryAndRootMe')
     user2.hospital = hospital2
     db.session.add(user2)
+    db.session.flush()
 
     # Questions by Ali Ghane for Rush University Medical Center.
     rush_hospital_question_options = {
@@ -66,9 +67,10 @@ with app.app_context():
         question.hospital_id = 1
         question.user_id = 1
         question.multiple_choice = True
+        question.text = question_str
+        db.session.add(question)
         db.session.flush()  # This is needed in order to generate an id for question
         for option_str in options_list:
-            print('question id is: ', question.id)
             option_generator(question.id, option_str)
 
     # Questions by Dean Jensen for Loyola Medical Center.
@@ -87,6 +89,8 @@ with app.app_context():
         question.hospital_id = 2
         question.user_id = 2
         question.multiple_choice = True
+        question.text = question_str
+        db.session.add(question)
         db.session.flush()  # This is needed in order to generate an id for question
         for option_str in options_list:
             option_generator(question.id, option_str)
