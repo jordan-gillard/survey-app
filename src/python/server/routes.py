@@ -1,10 +1,11 @@
 from flask import current_app as app, request, make_response
 
-from src.python.server import db
-from src.python.server.models import User
+
+@app.route('/api/hospitals/<int:hospital_id>/questions', methods=['GET'])
+def get_questions(hospital_id):
+    pass
 
 
-@app.route('/', methods=['GET'])
-def create_user():
-    """Create a user."""
-    return "hello world!"
+@app.route('/api/responses', methods=['POST'])
+def receive_responses():
+    pass

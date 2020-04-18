@@ -11,20 +11,14 @@ class Question(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer, primary_key=True)
     hospital_id = db.Column(db.Integer, ForeignKey('hospitals.id'), nullable=False)
-    doctor_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
-    question_text = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    text = db.Column(db.Text, nullable=False)
     active = db.Column(db.Boolean, default=True, nullable=False)
-    free_text = db.Column(db.Boolean, default=False, nullable=False)
-    multiple_choice = db.Column(db.Boolean, default=True, nullable=False)
+    free_text_field = db.Column(db.Boolean, default=False, nullable=False)
+    multiple_choice = db.Column(db.Boolean, default=False, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
 
     options = relationship("Option")
-
-
-users_hospital_relationship = db.Table('users_hospitals',
-                                       db.Column('user_id', db.Integer, ForeignKey('users.id')),
-                                       db.Column('hospital_id', db.Integer, ForeignKey('hospitals.id'))
-                                       )
 
 
 class Hospital(db.Model):
@@ -34,7 +28,7 @@ class Hospital(db.Model):
     active = db.Column(db.Boolean, default=True, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
 
-    users = relationship("User", secondary=users_hospital_relationship, back_populates='hospitals')
+    users = relationship("User", back_populates='hospital')
 
 
 class User(db.Model):
@@ -46,8 +40,9 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     active = db.Column(db.Boolean, default=True, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    hospital_id = db.Column(db.Integer, ForeignKey('hospitals.id'), nullable=False)
 
-    hospitals = relationship("Hospital", secondary=users_hospital_relationship, back_populates='users')
+    hospital = relationship("Hospital", back_populates='users')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

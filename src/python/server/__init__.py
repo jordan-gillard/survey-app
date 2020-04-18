@@ -9,12 +9,11 @@ migrate = Migrate(compare_type=True)
 
 
 def create_app():
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
     migrate.init_app(app, db)
 
     with app.app_context():
-        from . import routes
-        from . import models
+        from src.python.server import routes, models
         return app
