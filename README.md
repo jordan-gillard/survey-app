@@ -37,12 +37,12 @@ for all interaction with the backend database. The database migrations are locat
 directory.
 Database tables are located in `models.py` under `src/python/server/`. In order to configure the project
 to use a local database, you need to set the `SQLALCHEMY_DATABASE_URL` environment variable. The Flask
-server gets it's configuration from `src/python/server/config.py`. You see that in that file, there's a 
+server gets it's configuration from `src/python/server/config.py`. You'll see that in that file, there's a 
 line which reads:
 ```python
 SQLALCHEMY_DATABASE_URI = environ.get('SURVEY_APP_DATABASE_URL')
 ```
-This is how the URL is passed to the web server, and thus what the web server uses to connect to the
+This is how the database's URL is passed to the web server, and thus what the web server uses to connect to the
 database. Your URL should look something like this:
 ```
 sql_dialect_and_driver://username:password@localhost:5432/database_name
@@ -51,3 +51,19 @@ This project uses python-dotenv. So add your database URL to the `/.env` file an
 automatically when Flask runs.
 By default, this project uses `PostgreSQL` and the `psycopg2` database connector. You can find more 
 information about SQLAlchemy's database URL [here.](https://docs.sqlalchemy.org/en/13/core/engines.html)
+
+#### Generating your database with flask db
+Once you've created your database and set your `SQLALCHEMY_DATABASE_URI`, you can have `flask db` 
+create the database tables and relations for you. Simply run the following in your terminal:
+```bash
+flask db upgrade
+```
+This command will find the database migrations in the `migrations/versions` directory and apply them.
+
+#### Populating your database with dummy data
+If your database is empty, and you'd like to add some dummy data, there is the `populate_db_dummy_data.py`
+script. Once you've properly set the `SQLALCHEMY_DATABASE_URI` and run `flask db migrate`, you can add
+dummy data to your app by running:
+```bash
+python populate_db_dummy_data.py
+```

@@ -97,4 +97,5 @@ with app.app_context():
     # Finally, commit everything to the database
     db.session.commit()
     db.session.close()
+
 print('Successfully added data to database!')

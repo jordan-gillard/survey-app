@@ -20,6 +20,14 @@ class Question(db.Model):
 
     options = relationship("Option")
 
+    def serialize(self):
+        return {
+            'question': self.text,
+            'free_text_field': self.free_text_field,
+            'multiple_choice': self.multiple_choice,
+            'options': [option.serialize() for option in self.options]
+        }
+
 
 class Hospital(db.Model):
     __tablename__ = 'hospitals'
@@ -29,6 +37,7 @@ class Hospital(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
 
     users = relationship("User", back_populates='hospital')
+    questions = relationship("Question")
 
 
 class User(db.Model):
@@ -56,6 +65,9 @@ class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, ForeignKey('questions.id'), nullable=False)
     text = db.Column(db.String(60))
+
+    def serialize(self):
+        return {'text': self.text}
 
 
 class Response(db.Model):
