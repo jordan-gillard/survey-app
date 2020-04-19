@@ -7,10 +7,11 @@ from src.python.server.models import Hospital
 def get_questions(hospital_id):
     hospital = Hospital.query.filter(Hospital.id == hospital_id).one_or_none()
     if hospital:
-        questions = [question.serialize() for question in hospital.questions]
+        questions = [question.serialize() for question in hospital.questions if question.active]
         return jsonify({
             'success': True,
-            'questions': questions
+            'questions': questions,
+            'total_questions': len(questions)
         })
     else:
         return abort(404)
