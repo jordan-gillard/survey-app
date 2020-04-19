@@ -22,10 +22,11 @@ class Question(db.Model):
 
     def serialize(self):
         return {
+            'id': self.id,
             'question': self.text,
             'free_text_field': self.free_text_field,
             'multiple_choice': self.multiple_choice,
-            'options': [option.serialize() for option in self.options]
+            'options': [option.serialize() for option in self.options if option.active]
         }
 
 
@@ -64,10 +65,16 @@ class Option(db.Model):
     __tablename__ = 'options'
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, ForeignKey('questions.id'), nullable=False)
-    text = db.Column(db.String(60))
+    text = db.Column(db.String(60), nullable=False)
+    active = db.Column(db.Boolean, nullable=False, default=True)
+    created_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    deactivated_on = db.Column(db.DateTime, nullable=True)
 
     def serialize(self):
-        return {'text': self.text}
+        return {
+            'id': self.id,
+            'text': self.text
+        }
 
 
 class Response(db.Model):
