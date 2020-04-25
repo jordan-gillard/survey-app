@@ -10,6 +10,7 @@ def get_questions(hospital_id):
         questions = [question.serialize() for question in hospital.questions if question.active]
         return jsonify({
             'success': True,
+            'hospital_name': hospital.name,
             'questions': questions,
             'total_questions': len(questions)
         })
