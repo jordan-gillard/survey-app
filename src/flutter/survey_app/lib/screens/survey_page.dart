@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surveyapp/components/question_card.dart';
 
 class SurveyPage extends StatefulWidget {
   final questions;
@@ -10,17 +11,31 @@ class SurveyPage extends StatefulWidget {
 }
 
 class _SurveyPageState extends State<SurveyPage> {
+  String hospitalName;
+  List<Widget> questions = [];
+
   @override
   void initState() {
     super.initState();
-    print(widget.questions);
+
+    hospitalName = widget.questions['hospital_name'];
+    List questionsDicts = widget.questions['questions'];
+    questionsDicts.forEach(
+      (questionDict) {
+        QuestionCard question = QuestionCard(questionDict);
+        questions.add(question);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Survey!'),
+        title: Text(hospitalName),
+      ),
+      body: ListView(
+        children: questions,
       ),
     );
   }
