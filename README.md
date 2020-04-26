@@ -67,3 +67,91 @@ dummy data to your app by running:
 ```bash
 python populate_db_dummy_data.py
 ```
+
+## Using the API
+Currently, the API has two different endpoints. These endpoints are responsible for getting questions, and 
+receiving responses.  
+
+#### `/api/hospitals/<int:hospital_id>/questions`
+Use this endpoint to `GET` questions for hospital with given id `hospital_id`
+```
+method: GET
+example url: /api/hospitals/23/questions
+example response:
+{
+  "hospital_name": "Loyola Medical Center",
+  "questions": [
+    {
+      "free_text_field": false,
+      "id": 7,
+      "multiple_choice": true,
+      "options": [
+        {
+          "id": 25,
+          "text": "0-30 minutes"
+        },
+        {
+          "id": 26,
+          "text": "30-60 minutes"
+        },
+        {
+          "id": 27,
+          "text": "60+ minutes"
+        }
+      ],
+      "question": "How long did you wait to see a physician?"
+    },
+    {
+      "free_text_field": false,
+      "id": 8,
+      "multiple_choice": true,
+      "options": [
+        {
+          "id": 28,
+          "text": "0-10 minutes"
+        },
+        {
+          "id": 29,
+          "text": "10-20 minutes"
+        },
+        {
+          "id": 30,
+          "text": "20-30 minutes"
+        },
+        {
+          "id": 31,
+          "text": "30+ minutes"
+        }
+      ],
+      "question": "How much time did you spend with your physician?"
+    },
+    ...
+    ...
+    ...
+  ],
+  "success": true,
+  "total_questions": 6
+}
+```
+
+#### `/api/responses`
+Use this endpoint to `POST` survey responses.
+```
+method: POST
+sample request:
+{
+  "hospital_id": 1,
+  "responses" : [
+    {
+      "question_id": 1,
+      "option_selected": 2,
+      "free_text": null
+    },
+    {
+      "question_id": 2,
+      "option_selected": null,
+      "free_text": "I really liked my visit with my doctor. He took a lot of time to listen to me."
+    }
+  ]
+}
+```
