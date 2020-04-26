@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class QuestionCard extends StatefulWidget {
   final questionDict;
+
   QuestionCard(this.questionDict);
 
   @override
@@ -22,7 +23,16 @@ class _QuestionCardState extends State<QuestionCard> {
 
   void buildQuestionCard() {
     questionText = widget.questionDict['question'];
-    questionDisplay.add(Text(questionText));
+    Widget questionTextWidget = Padding(
+        padding: EdgeInsets.fromLTRB(15.0, 10.0, 0, 30.0),
+        child: Text(
+      questionText,
+      style: TextStyle(
+        fontSize: 20.0,
+      ),
+    )
+    );
+    questionDisplay.add(questionTextWidget);
 
     if (widget.questionDict['multiple_choice']) {
       List options = widget.questionDict['options'];
@@ -47,9 +57,15 @@ class _QuestionCardState extends State<QuestionCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: questionDisplay,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.indigo,
+        elevation: 20.0,
+        child: Column(
+          children: questionDisplay,
+        ),
       ),
     );
   }
