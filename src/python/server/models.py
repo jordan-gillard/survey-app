@@ -22,7 +22,7 @@ class Question(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
+            'question_id': self.id,
             'question': self.text,
             'free_text_field': self.free_text_field,
             'multiple_choice': self.multiple_choice,
@@ -72,7 +72,7 @@ class Option(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
+            'option_id': self.id,
             'text': self.text
         }
 
@@ -82,6 +82,10 @@ class Response(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, ForeignKey('questions.id'), nullable=False)
     hospital_id = db.Column(db.Integer, ForeignKey('hospitals.id'), nullable=False)
-    choosen_option = db.Column(db.Integer, ForeignKey('options.id'), nullable=True)
+    option_id = db.Column(db.Integer, ForeignKey('options.id'), nullable=True)
     response_text = db.Column(db.Text, nullable=True)
-    created = db.Column(db.DateTime)
+    created = db.Column(db.DateTime, default=datetime.now())
+
+    def commit(self):
+        db.session.add(self)
+        db.session.commit()

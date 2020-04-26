@@ -45,7 +45,7 @@ class _QuestionCardState extends State<QuestionCard> {
             secondary: Icon(Icons.adjust),
             onChanged: (newVal) {
               _isSelected = !_isSelected;
-              selectedId = option['id'];
+              selectedId = option['option_id'];
             },
           );
 

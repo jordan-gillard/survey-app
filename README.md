@@ -8,11 +8,12 @@ Computer Information Technology's capstone project.
 ## Getting setup
 ### Web Server
 #### Installation
-Development was written in Python 3.7. So it is encouraged that users who wish to run
-the web server use Python 3.7 or higher. [You can download Python 3.7 here.](https://www.python.org/downloads/release/python-377/)
+Development was written in Python 3.8. So it is encouraged that users who wish to run
+the web server use Python 3.8 or higher.
+[You can download a compatible Python interpreter here.](https://www.python.org/downloads/)
 
 #### Downloading the requirements
-Once you have Python 3.7 installed, you can download the requirements from the root 
+Once you have Python 3.8 installed, you can download the requirements from the root 
 directory's `requirements.txt` file by running the following in your terminal:
 ```
 pip install -r requirements.txt
@@ -66,4 +67,84 @@ script. Once you've properly set the `SQLALCHEMY_DATABASE_URI` and run `flask db
 dummy data to your app by running:
 ```bash
 python populate_db_dummy_data.py
+```
+
+## Using the API
+Currently, the API has two different endpoints. These endpoints are responsible for getting questions, and 
+receiving responses.  
+
+#### `/api/hospitals/<int:hospital_id>/questions`
+Use this endpoint to `GET` questions for hospital with given id `hospital_id`
+```
+method: GET
+example url: /api/hospitals/23/questions
+example response:
+{
+  "hospital_name": "Loyola Medical Center",
+  "questions": [
+    {
+      "free_text_field": false,
+      "multiple_choice": true,
+      "options": [
+        {
+          "option_id": 25,
+          "text": "0-30 minutes"
+        },
+        {
+          "option_id": 26,
+          "text": "30-60 minutes"
+        },
+        {
+          "option_id": 27,
+          "text": "60+ minutes"
+        }
+      ],
+      "question": "How long did you wait to see a physician?",
+      "question_id": 7
+    },
+    {
+      "free_text_field": false,
+      "multiple_choice": true,
+      "options": [
+        {
+          "option_id": 32,
+          "text": "Yes"
+        },
+        {
+          "option_id": 33,
+          "text": "No"
+        }
+      ],
+      "question": "Are you satisfied with your visit today?",
+      "question_id": 9
+    },
+    ...
+    ...
+    ...
+  ],
+  "success": true,
+  "total_questions": 6
+}
+```
+
+#### `/api/responses`
+Use this endpoint to `POST` survey responses.
+```
+method: POST
+sample request:
+{
+  "hospital_id": 1,
+  "responses" : [
+    {
+      "question_id": 1,
+      "option_selected": 2,
+      "response_text": null
+    },
+    {
+      "question_id": 2,
+      "option_selected": null,
+      "response_text": "I really liked my visit with my doctor. He took a lot of time to listen to me."
+    }
+  ]
+}
 ```
