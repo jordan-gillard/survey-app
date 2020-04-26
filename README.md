@@ -8,11 +8,12 @@ Computer Information Technology's capstone project.
 ## Getting setup
 ### Web Server
 #### Installation
-Development was written in Python 3.7. So it is encouraged that users who wish to run
-the web server use Python 3.7 or higher. [You can download Python 3.7 here.](https://www.python.org/downloads/release/python-377/)
+Development was written in Python 3.8. So it is encouraged that users who wish to run
+the web server use Python 3.8 or higher.
+[You can download a compatible Python interpreter here.](https://www.python.org/downloads/)
 
 #### Downloading the requirements
-Once you have Python 3.7 installed, you can download the requirements from the root 
+Once you have Python 3.8 installed, you can download the requirements from the root 
 directory's `requirements.txt` file by running the following in your terminal:
 ```
 pip install -r requirements.txt
@@ -83,47 +84,39 @@ example response:
   "questions": [
     {
       "free_text_field": false,
-      "id": 7,
       "multiple_choice": true,
       "options": [
         {
-          "id": 25,
+          "option_id": 25,
           "text": "0-30 minutes"
         },
         {
-          "id": 26,
+          "option_id": 26,
           "text": "30-60 minutes"
         },
         {
-          "id": 27,
+          "option_id": 27,
           "text": "60+ minutes"
         }
       ],
-      "question": "How long did you wait to see a physician?"
+      "question": "How long did you wait to see a physician?",
+      "question_id": 7
     },
     {
       "free_text_field": false,
-      "id": 8,
       "multiple_choice": true,
       "options": [
         {
-          "id": 28,
-          "text": "0-10 minutes"
+          "option_id": 32,
+          "text": "Yes"
         },
         {
-          "id": 29,
-          "text": "10-20 minutes"
-        },
-        {
-          "id": 30,
-          "text": "20-30 minutes"
-        },
-        {
-          "id": 31,
-          "text": "30+ minutes"
+          "option_id": 33,
+          "text": "No"
         }
       ],
-      "question": "How much time did you spend with your physician?"
+      "question": "Are you satisfied with your visit today?",
+      "question_id": 9
     },
     ...
     ...
@@ -145,12 +138,12 @@ sample request:
     {
       "question_id": 1,
       "option_selected": 2,
-      "free_text": null
+      "response_text": null
     },
     {
       "question_id": 2,
       "option_selected": null,
-      "free_text": "I really liked my visit with my doctor. He took a lot of time to listen to me."
+      "response_text": "I really liked my visit with my doctor. He took a lot of time to listen to me."
     }
   ]
 }
