@@ -35,6 +35,7 @@ class _SurveyPageState extends State<SurveyPage> {
         title: Text(hospitalName),
       ),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         children: questions,
       ),
     );
