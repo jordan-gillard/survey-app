@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:surveyapp/get_questions.dart';
+import 'package:surveyapp/constants.dart';
+import 'package:surveyapp/questions.dart';
 import 'package:surveyapp/screens/survey_page.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SpinKitWanderingCubes(color: Colors.greenAccent, size: 100.0),
+        child: loadingScreenWidget,
       ),
     );
   }

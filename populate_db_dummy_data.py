@@ -1,12 +1,7 @@
-from os import environ
-
 from flask import Flask
 
 from src.python.server import db, create_app, Config
 from src.python.server.models import Hospital, User, Question, Option
-
-print('SURVEY_APP_DATABASE_URL is: ')
-print(environ.get('SURVEY_APP_DATABASE_URL'))
 
 app = Flask(__name__)
 db.init_app(app)
