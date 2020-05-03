@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-bool _isSelected = false;
+// question ID, option selected pairs - i.e. {1: 1, 2: 5, 3: 9, 4: 11}
+var questionOptionDict = {};
 
 class QuestionCard extends StatefulWidget {
   final questionDict;
@@ -13,7 +14,7 @@ class QuestionCard extends StatefulWidget {
 
 class _QuestionCardState extends State<QuestionCard> {
   String questionText;
-  int selectedId;
+  int questionId;
   List<Widget> questionDisplay = [];
 
   @override
@@ -24,6 +25,7 @@ class _QuestionCardState extends State<QuestionCard> {
 
   void buildQuestionCard() {
     questionText = widget.questionDict['question'];
+    questionId = widget.questionDict['question_id'];
     Widget questionTextWidget = Padding(
       padding: EdgeInsets.fromLTRB(15.0, 10.0, 0, 30.0),
       child: Text(
@@ -42,7 +44,8 @@ class _QuestionCardState extends State<QuestionCard> {
         (option) {
           String optionText = option['text'];
           int optionId = option['option_id'];
-          Widget optionCheckbox = customCheckboxListTile(optionText, optionId);
+          Widget optionCheckbox =
+              CustomCheckboxListTile(optionText, optionId, questionId);
           questionDisplay.add(optionCheckbox);
         },
       );
@@ -65,17 +68,20 @@ class _QuestionCardState extends State<QuestionCard> {
   }
 }
 
-class customCheckboxListTile extends StatefulWidget {
-  String text;
-  int optionId;
+class CustomCheckboxListTile extends StatefulWidget {
+  final String text;
+  final int optionId;
+  final int questionId;
 
-  customCheckboxListTile(this.text, this.optionId);
+  CustomCheckboxListTile(this.text, this.optionId, this.questionId);
 
   @override
-  _customCheckboxListTileState createState() => _customCheckboxListTileState();
+  _CustomCheckboxListTileState createState() => _CustomCheckboxListTileState();
 }
 
-class _customCheckboxListTileState extends State<customCheckboxListTile> {
+class _CustomCheckboxListTileState extends State<CustomCheckboxListTile> {
+  bool _isSelected = false;
+
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
@@ -86,10 +92,9 @@ class _customCheckboxListTileState extends State<customCheckboxListTile> {
       onChanged: (newVal) {
         setState(() {
           _isSelected = newVal;
-//          selectedId = optionId;  # TODO: pass state upwards
+          questionOptionDict[widget.questionId] = widget.optionId;
         });
       },
     );
-    ;
   }
 }
