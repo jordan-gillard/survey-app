@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:surveyapp/components/question_card.dart';
 import 'package:surveyapp/constants.dart';
+import 'package:surveyapp/components/question_card.dart'
+    show questionOptionDict;
+import 'package:surveyapp/screens/sending_screen.dart';
 
 class SurveyPage extends StatefulWidget {
   final questions;
@@ -55,6 +58,12 @@ class SubmitButton extends StatelessWidget {
       ),
       onPressed: () {
         print("Submit button pressed!");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SendingScreen(),
+          ),
+        );
       },
       child: Text(
         "Submit",

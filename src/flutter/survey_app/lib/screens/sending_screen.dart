@@ -15,3 +15,17 @@
 //    }
 //  ]
 //}
+import 'package:flutter/material.dart';
+import 'package:surveyapp/constants.dart';
+
+class SendingScreen extends StatefulWidget {
+  @override
+  _SendingScreenState createState() => _SendingScreenState();
+}
+
+class _SendingScreenState extends State<SendingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return loadingScreenWidget;
+  }
+}
