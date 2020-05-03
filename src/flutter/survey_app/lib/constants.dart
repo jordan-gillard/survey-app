@@ -10,3 +10,12 @@ const universalTextStyle = TextStyle(
   fontSize: 20.0,
 );
 const loadingScreenWidget = SpinKitWanderingCubes(color: Colors.greenAccent, size: 100.0);
+
+List<Shadow> customShadow = <Shadow>[
+  Shadow(
+    offset: Offset(2.0, 1.0),
+    color: Color.fromARGB(255, 0, 0, 0),
+  ),
+];
+
+var largeTextStyle = TextStyle(fontSize: 50.0, shadows: customShadow);

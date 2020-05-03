@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surveyapp/constants.dart';
 
 class ThankYouScreen extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class ThankYouScreen extends StatelessWidget {
           children: <Widget>[
             Text(
               'Thank you!',
-              style: TextStyle(fontSize: 50.0, shadows: customShadow),
+              style: largeTextStyle,
             ),
             Text(
               'Your response has been submitted successfully.',
@@ -24,10 +25,3 @@ class ThankYouScreen extends StatelessWidget {
     );
   }
 }
-
-List<Shadow> customShadow = <Shadow>[
-  Shadow(
-    offset: Offset(2.0, 1.0),
-    color: Color.fromARGB(255, 0, 0, 0),
-  ),
-];
