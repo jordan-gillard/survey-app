@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surveyapp/components/question_card.dart';
+import 'package:surveyapp/constants.dart';
 
 class SurveyPage extends StatefulWidget {
   final questions;
@@ -26,6 +27,7 @@ class _SurveyPageState extends State<SurveyPage> {
         questions.add(question);
       },
     );
+    questions.add(SubmitButton());
   }
 
   @override
@@ -37,6 +39,26 @@ class _SurveyPageState extends State<SurveyPage> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         children: questions,
+      ),
+    );
+  }
+}
+
+class SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      color: questionAndButtonBackgroundColor,
+      elevation: questionAndButtonElevation,
+      shape: RoundedRectangleBorder(
+        borderRadius: questionAndButtonBorderRadius,
+      ),
+      onPressed: () {
+        print("Submit button pressed!");
+      },
+      child: Text(
+        "Submit",
+        style: universalTextStyle,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surveyapp/constants.dart';
 
 // question ID, option selected pairs - i.e. {1: 1, 2: 5, 3: 9, 4: 11}
 var questionOptionDict = {};
@@ -30,9 +31,7 @@ class _QuestionCardState extends State<QuestionCard> {
       padding: EdgeInsets.fromLTRB(15.0, 10.0, 0, 30.0),
       child: Text(
         questionText,
-        style: TextStyle(
-          fontSize: 20.0,
-        ),
+        style: universalTextStyle,
       ),
     );
     questionDisplay.add(questionTextWidget);
@@ -57,9 +56,9 @@ class _QuestionCardState extends State<QuestionCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Material(
-        borderRadius: BorderRadius.circular(20.0),
-        color: Colors.indigo,
-        elevation: 20.0,
+        borderRadius: questionAndButtonBorderRadius,
+        color: questionAndButtonBackgroundColor,
+        elevation: questionAndButtonElevation,
         child: Column(
           children: questionDisplay,
         ),
