@@ -63,7 +63,7 @@ This command will find the database migrations in the `migrations/versions` dire
 
 #### Populating your database with dummy data
 If your database is empty, and you'd like to add some dummy data, there is the `populate_db_dummy_data.py`
-script. Once you've properly set the `SQLALCHEMY_DATABASE_URI` and run `flask db migrate`, you can add
+script. Once you've properly set the `SQLALCHEMY_DATABASE_URI` and run `flask db upgrade`, you can add
 dummy data to your app by running:
 ```bash
 python populate_db_dummy_data.py
