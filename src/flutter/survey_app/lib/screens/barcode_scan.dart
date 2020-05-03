@@ -1,6 +1,8 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
+import 'package:surveyapp/screens/loading_screen.dart';
+import 'package:surveyapp/screens/survey_page.dart';
 
 class BarcodeScanScreen extends StatefulWidget {
   @override
@@ -8,8 +10,15 @@ class BarcodeScanScreen extends StatefulWidget {
 }
 
 class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
-  void scanQRCode() async {
+  Future<String> scanQRCode() async {
     var result = await BarcodeScanner.scan();
+    String hospitalId = result.rawContent;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoadingScreen(hospitalId),
+      ),
+    );
   }
 
   @override

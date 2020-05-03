@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:surveyapp/components/back_icon_button.dart';
 import 'package:surveyapp/components/question_card.dart';
 import 'package:surveyapp/constants.dart';
-import 'package:surveyapp/components/question_card.dart'
-    show responses;
+import 'package:surveyapp/components/question_card.dart' show responses;
+import 'package:surveyapp/screens/barcode_scan.dart';
 import 'package:surveyapp/screens/sending_screen.dart';
 
 int hospitalId;
 
 class SurveyPage extends StatefulWidget {
   final questions;
+
   SurveyPage({this.questions});
+
   @override
   _SurveyPageState createState() => _SurveyPageState();
 }
@@ -37,6 +40,7 @@ class _SurveyPageState extends State<SurveyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: backIconButton(context),
         title: Text(hospitalName),
       ),
       body: ListView(

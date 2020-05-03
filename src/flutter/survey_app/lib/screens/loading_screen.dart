@@ -4,6 +4,9 @@ import 'package:surveyapp/questions.dart';
 import 'package:surveyapp/screens/survey_page.dart';
 
 class LoadingScreen extends StatefulWidget {
+  var hospitalId;
+  LoadingScreen(this.hospitalId);
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -16,7 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getQuestions() async {
-    var questions = await Questions().getQuestions(1);  // TODO: get hospital id from front page
+    var questions = await Questions().getQuestions(widget.hospitalId);  // TODO: get hospital id from front page
 
     Navigator.push(
         context,
