@@ -20,25 +20,33 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
 import 'package:surveyapp/questions.dart';
+import 'package:surveyapp/screens/thank_you.dart';
 
 class SendingScreen extends StatefulWidget {
   final responseDict;
+
   SendingScreen({this.responseDict});
 
   @override
   _SendingScreenState createState() => _SendingScreenState();
 }
 
-
 class _SendingScreenState extends State<SendingScreen> {
   @override
   void initState() {
     super.initState();
-    print("Dictionary to be sent to server: ${widget.responseDict}");
+    postResponse();
+  }
+
+  void postResponse() async {
     Questions questionClass = Questions();
-//    var responses = jsonEncode(widget.responseDict);
-    var responses = widget.responseDict;
-    questionClass.postResponse(responses);
+    await questionClass.postResponse(widget.responseDict);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ThankYouScreen(),
+      ),
+    );
   }
 
   @override
