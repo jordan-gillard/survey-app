@@ -19,11 +19,21 @@ import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
 
 class SendingScreen extends StatefulWidget {
+  final responseDict;
+  SendingScreen({this.responseDict});
+
   @override
   _SendingScreenState createState() => _SendingScreenState();
 }
 
+
 class _SendingScreenState extends State<SendingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    print("Dictionary to be sent to server: ${widget.responseDict}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return loadingScreenWidget;

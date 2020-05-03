@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:surveyapp/components/question_card.dart';
 import 'package:surveyapp/constants.dart';
 import 'package:surveyapp/components/question_card.dart'
-    show questionOptionDict;
+    show responses;
 import 'package:surveyapp/screens/sending_screen.dart';
+
+int hospitalId;
 
 class SurveyPage extends StatefulWidget {
   final questions;
-
   SurveyPage({this.questions});
-
   @override
   _SurveyPageState createState() => _SurveyPageState();
 }
@@ -21,7 +21,7 @@ class _SurveyPageState extends State<SurveyPage> {
   @override
   void initState() {
     super.initState();
-
+    hospitalId = widget.questions["hospital_id"];
     hospitalName = widget.questions['hospital_name'];
     List questionsDicts = widget.questions['questions'];
     questionsDicts.forEach(
@@ -57,11 +57,14 @@ class SubmitButton extends StatelessWidget {
         borderRadius: questionAndButtonBorderRadius,
       ),
       onPressed: () {
-        print("Submit button pressed!");
+        var responseDict = {
+          "hospital_id": hospitalId,
+          "responses": responses,
+        };
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SendingScreen(),
+            builder: (context) => SendingScreen(responseDict: responseDict),
           ),
         );
       },

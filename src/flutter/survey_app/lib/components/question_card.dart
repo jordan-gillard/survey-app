@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
 
-// question ID, option selected pairs - i.e. {1: 1, 2: 5, 3: 9, 4: 11}
 var responses = [];
 
 void removeResponse(responseDict) {
@@ -119,7 +118,6 @@ class _CustomCheckboxListTileState extends State<CustomCheckboxListTile> {
             if (_isSelected) {
               addResponseToResponses(questionOptionDict);
             }
-            print(responses);
           },
         );
       },

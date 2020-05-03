@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:surveyapp/constants.dart';
 import 'package:surveyapp/get_questions.dart';
 import 'package:surveyapp/screens/survey_page.dart';
