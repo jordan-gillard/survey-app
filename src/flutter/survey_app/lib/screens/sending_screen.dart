@@ -15,8 +15,11 @@
 //    }
 //  ]
 //}
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
+import 'package:surveyapp/questions.dart';
 
 class SendingScreen extends StatefulWidget {
   final responseDict;
@@ -32,6 +35,10 @@ class _SendingScreenState extends State<SendingScreen> {
   void initState() {
     super.initState();
     print("Dictionary to be sent to server: ${widget.responseDict}");
+    Questions questionClass = Questions();
+//    var responses = jsonEncode(widget.responseDict);
+    var responses = widget.responseDict;
+    questionClass.postResponse(responses);
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
-const surveyAppUrl = 'http://localhost:5000/api/hospitals';
+const surveyAppUrl = 'http://localhost:5000/api';
 const questionAndButtonBackgroundColor = Colors.indigo;
 const questionAndButtonElevation = 20.0;
 var questionAndButtonBorderRadius = BorderRadius.circular(20.0);

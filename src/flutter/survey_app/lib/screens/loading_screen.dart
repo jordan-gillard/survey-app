@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
-import 'package:surveyapp/get_questions.dart';
+import 'package:surveyapp/questions.dart';
 import 'package:surveyapp/screens/survey_page.dart';
 
 class LoadingScreen extends StatefulWidget {
