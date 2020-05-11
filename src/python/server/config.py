@@ -1,7 +1,6 @@
-from os import environ
+import os
 
 
 class Config:
-    # Database
-    SQLALCHEMY_DATABASE_URI = environ.get('SURVEY_APP_DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SURVEY_APP_DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
