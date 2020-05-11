@@ -50,7 +50,7 @@ sql_dialect_and_driver://username:password@localhost:5432/database_name
 ```
 This project uses python-dotenv. So add your database URL to the `/.env` file and it will be found
 automatically when Flask runs.
-By default, this project uses `PostgreSQL` and the `psycopg2` database connector. You can find more 
+By default, this project uses `Microsoft SQL Server 2008` and the `pymssql` database connector. You can find more 
 information about SQLAlchemy's database URL [here.](https://docs.sqlalchemy.org/en/13/core/engines.html)
 
 #### Generating your database with flask db
