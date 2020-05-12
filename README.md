@@ -8,12 +8,12 @@ Computer Information Technology's capstone project.
 ## Getting setup
 ### Web Server
 #### Installation
-Development was written in Python 3.8. So it is encouraged that users who wish to run
-the web server use Python 3.8 or higher.
+Development was written in Python 3.7. So it is encouraged that users who wish to run
+the web server use Python 3.7.
 [You can download a compatible Python interpreter here.](https://www.python.org/downloads/)
 
 #### Downloading the requirements
-Once you have Python 3.8 installed, you can download the requirements from the root 
+Once you have Python 3.7 installed, you can download the requirements from the root 
 directory's `requirements.txt` file by running the following in your terminal:
 ```
 pip install -r requirements.txt
