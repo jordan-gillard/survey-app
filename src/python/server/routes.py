@@ -50,10 +50,12 @@ def receive_responses():
             response.question_id = response_dict["question_id"]
             response.hospital_id = hospital_id
 
-            if option_selected := response_dict["option_selected"]:
+            option_selected = response_dict["option_selected"]  # bool
+            if option_selected:
                 response.option_id = option_selected
 
-            if response_text := response_dict["response_text"]:
+            response_text = response_dict["response_text"]  # bool
+            if response_text:
                 response.response_text = response_text
 
             response.commit()
