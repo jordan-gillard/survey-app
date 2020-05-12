@@ -66,3 +66,11 @@ def receive_responses():
 
     except:
         abort(400)
+
+
+@app.route('/health')
+def health_check():
+    return jsonify({
+        'success': True,
+        'status': 'healthy'
+    })
