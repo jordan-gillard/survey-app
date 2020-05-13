@@ -34,40 +34,24 @@ def internal_server_error(*args, **kwargs):
     }), 500
 
 
-# @app.route('/api/hospitals/<int:hospital_id>/questions', methods=['GET'])
-# def get_questions(hospital_id):
-#     try:
-#         hospital = Hospital.query.filter(Hospital.id == hospital_id).one_or_none()
-#         if hospital:
-#             questions = [question.serialize() for question in hospital.questions if question.active]
-#             return jsonify({
-#                 'success': True,
-#                 'hospital_id': hospital.id,
-#                 'hospital_name': hospital.name,
-#                 'questions': questions,
-#                 'total_questions': len(questions)
-#             })
-#         else:
-#             return abort(404)
-#     except sqlalchemy.exc.OperationalError as e:
-#         logging.error(e)
-#         abort(500)
-
 @app.route('/api/hospitals/<int:hospital_id>/questions', methods=['GET'])
 def get_questions(hospital_id):
-    hospital = Hospital.query.filter(Hospital.id == hospital_id).one_or_none()
-    if hospital:
-        questions = [question.serialize() for question in hospital.questions if question.active]
-        return jsonify({
-            'success': True,
-            'hospital_id': hospital.id,
-            'hospital_name': hospital.name,
-            'questions': questions,
-            'total_questions': len(questions)
-        })
-    else:
-        return abort(404)
-
+    try:
+        hospital = Hospital.query.filter(Hospital.id == hospital_id).one_or_none()
+        if hospital:
+            questions = [question.serialize() for question in hospital.questions if question.active]
+            return jsonify({
+                'success': True,
+                'hospital_id': hospital.id,
+                'hospital_name': hospital.name,
+                'questions': questions,
+                'total_questions': len(questions)
+            })
+        else:
+            return abort(404)
+    except sqlalchemy.exc.OperationalError as e:
+        logging.error(e)
+        abort(500)
 
 
 @app.route('/api/responses', methods=['POST'])

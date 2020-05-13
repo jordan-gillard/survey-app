@@ -30,6 +30,8 @@ in the root directory (`survey_app/`) and type the following in your terminal:
 ```bash
 flask run
 ```
+However, it you want to avoid possible issues with required libraries for the ODBC database connector,
+you should run the web server via the instructions in the Docker section below.
 
 ### Database
 #### Getting started
@@ -41,15 +43,21 @@ to use a local database, you need to set the `SQLALCHEMY_DATABASE_URL` environme
 server gets it's configuration from `src/python/server/config.py`. You'll see that in that file, there's a 
 line which reads:
 ```python
-SQLALCHEMY_DATABASE_URI = environ.get('SURVEY_APP_DATABASE_URL')
+ODBC_connection_string = os.environ.get('ODBC_CONNECTION_STRING')
+params = urllib.parse.quote_plus(ODBC_connection_string)
+# and
+SQLALCHEMY_DATABASE_URI = "mssql+pyodbc:///?odbc_connect=%s" % params
 ```
 This is how the database's URL is passed to the web server, and thus what the web server uses to connect to the
-database. Your URL should look something like this:
+database. This project is build around using a Microsoft SQL Server DB. This is because my teammates accompanying
+website is build with .NET, which integrates with Microsoft SQL Server easily. Because of this, you will have to set
+the ODBC database connection string as an environment variable in the root level `.env` file. This will look something
+like:
 ```
-sql_dialect_and_driver://username:password@localhost:5432/database_name
+export ODBC_CONNECTION_STRING="Driver={ODBC Driver 17 for SQL Server};Server=tcp:sql-server-for-capstone.database.windows.net,1433;Database=MastersCapstone;Uid=root-admin;Pwd={your password here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
 ```
 This project uses python-dotenv. So add your database URL to the `/.env` file and it will be found
-automatically when Flask runs.
+automatically when Flask runs via the `load_dotenv()` call in `config.py`.
 By default, this project uses `Microsoft SQL Server 2008` and the `pymssql` database connector. You can find more 
 information about SQLAlchemy's database URL [here.](https://docs.sqlalchemy.org/en/13/core/engines.html)
 
@@ -68,6 +76,18 @@ dummy data to your app by running:
 ```bash
 python populate_db_dummy_data.py
 ```
+
+## Running the web server with Docker
+### Installing Docker
+If you do not have docker, then [follow the instructions for downloading Docker here.](https://docs.docker.com/engine/install/)
+
+### Building and running the Docker container
+The `Dockerfile` is located in the root level directory. From there, run the following to build, tag, and run the
+web server. Make sure your computer's port 5000 is available.
+```
+docker build -t web_server . && docker run -p 5000:5000 web_server 
+```
+
 
 ## Using the API
 Currently, the API has two different endpoints. These endpoints are responsible for getting questions, and 
