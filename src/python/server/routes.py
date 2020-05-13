@@ -1,5 +1,7 @@
 import json
+import logging
 
+import sqlalchemy
 from flask import current_app as app, request, jsonify, abort
 
 from src.python.server.models import Hospital, Response
@@ -23,20 +25,33 @@ def method_not_allowed():
     }), 404
 
 
+@app.errorhandler(500)
+def internal_server_error(*args, **kwargs):
+    return jsonify({
+        'success': False,
+        'response': 'Internal server error.',
+        'error': 500
+    }), 500
+
+
 @app.route('/api/hospitals/<int:hospital_id>/questions', methods=['GET'])
 def get_questions(hospital_id):
-    hospital = Hospital.query.filter(Hospital.id == hospital_id).one_or_none()
-    if hospital:
-        questions = [question.serialize() for question in hospital.questions if question.active]
-        return jsonify({
-            'success': True,
-            'hospital_id': hospital.id,
-            'hospital_name': hospital.name,
-            'questions': questions,
-            'total_questions': len(questions)
-        })
-    else:
-        return abort(404)
+    try:
+        hospital = Hospital.query.filter(Hospital.id == hospital_id).one_or_none()
+        if hospital:
+            questions = [question.serialize() for question in hospital.questions if question.active]
+            return jsonify({
+                'success': True,
+                'hospital_id': hospital.id,
+                'hospital_name': hospital.name,
+                'questions': questions,
+                'total_questions': len(questions)
+            })
+        else:
+            return abort(404)
+    except sqlalchemy.exc.OperationalError as e:
+        logging.error(e)
+        abort(500)
 
 
 @app.route('/api/responses', methods=['POST'])
