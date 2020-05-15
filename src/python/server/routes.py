@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import logging
 
@@ -57,10 +58,12 @@ def get_questions(hospital_id):
 @app.route('/api/responses', methods=['POST'])
 def receive_responses():
     response_json = json.loads(request.data)
+    now = datetime.now()
     try:
         hospital_id = response_json['hospital_id']
         for response_dict in response_json['responses']:
             response = Response()
+            response.created = now
 
             response.question_id = response_dict["question_id"]
             response.hospital_id = hospital_id
