@@ -48,7 +48,7 @@ def get_questions(hospital_id):
                 'total_questions': len(questions)
             })
         else:
-            return abort(404)
+            abort(404)
     except sqlalchemy.exc.OperationalError as e:
         logging.error(e)
         abort(500)
