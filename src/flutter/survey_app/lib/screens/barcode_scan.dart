@@ -2,7 +2,6 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:surveyapp/constants.dart';
 import 'package:surveyapp/screens/loading_screen.dart';
-import 'package:surveyapp/screens/survey_page.dart';
 
 class BarcodeScanScreen extends StatefulWidget {
   @override
