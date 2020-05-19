@@ -3,7 +3,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
 const surveyAppUrl = 'http://40.112.176.40/api';
-//const surveyAppUrl = 'http://127.0.0.1:5000/api';
 const questionAndButtonBackgroundColor = Colors.indigo;
 const questionAndButtonElevation = 20.0;
 var questionAndButtonBorderRadius = BorderRadius.circular(20.0);

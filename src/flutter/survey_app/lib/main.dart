@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => BarcodeScanScreen(),
-//        '/': (context) => LoadingScreen(2),
+//        '/': (context) => BarcodeScanScreen(),  // uncomment if you're not running on simulator
+        '/': (context) => LoadingScreen(2),
         '/survey': (context) => SurveyPage(),
         '/sendingScreen': (context) => SendingScreen()
       },
