@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
-  http: ^0.12.0+4
+  http: ">=0.12.0+4 <0.14.0"
   collection: ^1.14.11
   barcode_scan: any
   flutter_launcher_icons: "^0.7.0"
